@@ -1,0 +1,15 @@
+server {
+  listen $PORT default_server;
+
+  location /qb/ {
+    rewrite /qb/(.*) /$1 break;
+    proxy_pass	http://localhost:8080/;
+    proxy_set_header Referer http://localhost:8080/;
+    proxy_set_header Origin http://localhost:8080/;
+  }
+
+  location / {
+       root /;
+       autoindex on;
+  }
+}
